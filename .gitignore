@@ -3,3 +3,11 @@
 ################################################################################
 
 /.vs/CoolBleSearchAssignment
+/CoolBleSearchAssignment/CoolBleSearchAssignment/bin/Debug/netstandard2.0
+/CoolBleSearchAssignment/CoolBleSearchAssignment/obj
+/CoolBleSearchAssignment/CoolBleSearchAssignment.Android/bin/Debug
+/CoolBleSearchAssignment/CoolBleSearchAssignment.Android/obj
+/CoolBleSearchAssignment/CoolBleSearchAssignment.iOS/bin/iPhone/Debug
+/CoolBleSearchAssignment/CoolBleSearchAssignment.iOS/obj/iPhone/Debug
+/CoolBleSearchAssignment/CoolBleSearchAssignment.iOS/obj
+/CoolBlueSearchAssignmentTest/obj/Debug
