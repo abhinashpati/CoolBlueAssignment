@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CoolBleSearchAssignment.Contracts.Services.General;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -9,10 +10,16 @@ namespace CoolBleSearchAssignment.ViewModels.Base
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
+        protected readonly IConnectionService _connectionService;
+        protected readonly INavigationService _navigationService;
+        protected readonly IDialogService _dialogService;
 
-        public BaseViewModel()
+        public BaseViewModel(IConnectionService connectionService, INavigationService navigationService,
+            IDialogService dialogService)
         {
-            
+            _connectionService = connectionService;
+            _navigationService = navigationService;
+            _dialogService = dialogService;
         }
 
         private bool _isBusy;
