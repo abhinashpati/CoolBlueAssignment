@@ -1,7 +1,6 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using CoolBleSearchAssignment.Services;
 using CoolBleSearchAssignment.Views;
 
 namespace CoolBleSearchAssignment
@@ -12,9 +11,7 @@ namespace CoolBleSearchAssignment
         public App()
         {
             InitializeComponent();
-
-            DependencyService.Register<MockDataStore>();
-            MainPage = new AppShell();
+            MainPage = new NavigationPage(new ProductListView());
         }
 
         protected override void OnStart()
