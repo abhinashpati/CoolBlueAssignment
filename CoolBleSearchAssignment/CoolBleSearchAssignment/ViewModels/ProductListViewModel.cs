@@ -14,7 +14,7 @@ using BaseViewModel = CoolBleSearchAssignment.ViewModels.Base.BaseViewModel;
 
 namespace CoolBleSearchAssignment.ViewModels
 {
-    class ProductListViewModel : BaseViewModel
+    public class ProductListViewModel : BaseViewModel
     {
         private readonly IProductApiService _productApiService;
         private ObservableRangeCollection<Product> _productItemList;

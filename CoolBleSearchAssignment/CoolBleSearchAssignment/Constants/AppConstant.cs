@@ -12,5 +12,8 @@ namespace CoolBleSearchAssignment.Constants
         public const string OKMESSAGE = "OK";
         public const string TITLE = "CoolBlue Search Assignment";
         public const string NO_INTERNET = "No Internet Connection";
+        public const string COOL_BLUE_CHOICE = "CoolBlues Choice";
+        public const string COOL_BLUE_PROMOTION = "Promotion";
+        public const string DELIVERED_TOMORROW = "Delivered tomorrow";
     }
 }

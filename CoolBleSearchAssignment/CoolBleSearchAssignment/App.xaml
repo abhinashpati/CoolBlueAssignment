@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:CoolBleSearchAssignment.Converters;assembly=CoolBleSearchAssignment"
              x:Class="CoolBleSearchAssignment.App">
     <!--
         Define global resources and styles here, that apply to all pages in your app.
@@ -27,6 +28,12 @@
                     </VisualStateGroupList>
                 </Setter>
             </Style>
+            <Color x:Key="ToolBarBlueColor">#00aeef</Color>
+            <Color x:Key="WhiteColor">#ffffff</Color>
+            <converters:PromotionTypeConverter x:Key="PromotionTypeConverter"></converters:PromotionTypeConverter>
+            <converters:StringNullOrEmptyBoolConverter x:Key="StringNullOrEmptyBoolConverter"></converters:StringNullOrEmptyBoolConverter>
+            <converters:NextDayDeliveryConverter x:Key="NextDayDeliveryConverter"></converters:NextDayDeliveryConverter>
+            <converters:StrikeThroughConverter x:Key="StrikeThroughConverter"></converters:StrikeThroughConverter>
         </ResourceDictionary>        
     </Application.Resources>
 </Application>

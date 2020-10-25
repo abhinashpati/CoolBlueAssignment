@@ -1,12 +1,136 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModelBase="clr-namespace:CoolBleSearchAssignment.Utilities"
+             viewModelBase:ViewModelLocator.AutoWireViewModel="true" Title="CoolBlues Search Assingment"
+             xmlns:rating="clr-namespace:Syncfusion.SfRating.XForms;assembly=Syncfusion.SfRating.XForms"
              x:Class="CoolBleSearchAssignment.Views.ProductListView">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Orientation="Vertical">
+            <Entry
+                    x:Name="searchtext"
+                    FontSize="16"
+                    Placeholder="Search Here"
+                    Margin="5,5,5,0"
+                BackgroundColor="White"
+                VerticalTextAlignment="Center"
+                Completed="Searchtext_Completed"
+                    HorizontalOptions="FillAndExpand"
+                    Text="{Binding SearchText, Mode=TwoWay}"
+                    TextColor="#000000"
+                    VerticalOptions="FillAndExpand"
+                PlaceholderColor="Gray"
+                    WidthRequest="200"/>
+            <Frame Margin="5,0,5,5">
+                <ListView x:Name="productItemList" ItemsSource="{Binding ProductItemList}" SelectionMode="None" CachingStrategy="RecycleElementAndDataTemplate" HasUnevenRows="True" SeparatorVisibility="Default" SeparatorColor="Blue">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <StackLayout Orientation="Vertical" Grid.Column="0"  Grid.Row="0" Grid.RowSpan="5" Grid.ColumnSpan="2" Padding="5">
+                                        <Image 
+                                               Source="{Binding ProductImage}"
+                                           VerticalOptions="Start"
+                                           HeightRequest="150"
+                                            Aspect="AspectFit"
+                                           HorizontalOptions="Start" />
+                                        <Label
+                                            Text="{Binding PromoIcon.Type, Converter={StaticResource PromotionTypeConverter}}" 
+                                            TextColor="{StaticResource ToolBarBlueColor}" Padding="5"
+                                            FontSize="Default" >
+                                            <Label.Triggers>
+                                                <DataTrigger TargetType="Label" Binding="{Binding PromoIcon.Type}">
+                                                    <Setter Property="IsVisible" Value="False" />
+                                                    <Setter Property="HeightRequest" Value="0" />
+                                                </DataTrigger>
+                                            </Label.Triggers>
+                                        </Label>
+                                    </StackLayout>
+                                    <StackLayout Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="0" Orientation="Vertical" Padding="5,5,5,5" Grid.RowSpan="1" HorizontalOptions="FillAndExpand" >
+                                        <Label Text="{Binding ProductName}" TextColor="{StaticResource ToolBarBlueColor}" FontAttributes="Bold" VerticalOptions="Start"/>
+                                        <StackLayout Orientation="Horizontal">
+                                            <rating:SfRating x:Name="rating" ItemCount="5" ItemSize="15"
+                                                         Value="{Binding ReviewInformation.ReviewSummary.ReviewAverage}" Precision="Half" Margin="0,2,0,0"
+                                                         ReadOnly="true">
+                                                <rating:SfRating.RatingSettings>
+                                                    <rating:SfRatingSettings RatedStroke="Black" UnRatedFill="Gray" />
+                                                </rating:SfRating.RatingSettings>
+                                            </rating:SfRating>
+                                            <Label Text="{Binding ReviewInformation.ReviewSummary.ReviewCount,  StringFormat='{0} reviews'}" TextColor="Black" HorizontalOptions="Fill" />
+                                        </StackLayout>
+                                    </StackLayout>
+                                    <ListView Grid.Column="1" Grid.ColumnSpan="3" 
+                                              Grid.Row="1" Grid.RowSpan="3" 
+                                              SelectionMode="None"
+                                              Margin="0"
+                                              x:Name="productItemUSPs" ItemsSource="{Binding USPs}" 
+                                              CachingStrategy="RecycleElementAndDataTemplate" 
+                                              HasUnevenRows="False"
+                                              HorizontalOptions="FillAndExpand"
+                                              VerticalOptions="Fill" RowHeight="25"
+                                             >
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <ViewCell>
+                                                    <StackLayout  VerticalOptions="Fill">
+                                                        <Label Text="{Binding .}" FontSize="Small" 
+                                                               Padding="5,5,5,5"
+                                                           TextColor="Black" HorizontalOptions="StartAndExpand" 
+                                                           VerticalOptions="Start" HorizontalTextAlignment="Start" 
+                                                           CharacterSpacing="0.1" LineBreakMode="CharacterWrap" MaxLines="1"/>
+                                                    </StackLayout>
+                                                </ViewCell>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                    <StackLayout Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="4" Orientation="Vertical" Padding="5,5,5,5">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding SalesPriceIncVat}" TextColor="Black" FontAttributes="Bold" />
+                                            <Label Text="Retail price" TextColor="Gray">
+                                                <Label.Triggers>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding Source={x:Reference lblRetailPrice}, Path=Text.Length}" Value="0">
+                                                        <Setter Property="IsVisible" Value="False" />
+                                                    </DataTrigger>
+                                                </Label.Triggers>
+                                            </Label>
+                                            <Label x:Name="lblRetailPrice" Text="{Binding ListPriceIncVat, Converter={StaticResource StrikeThroughConverter}}" TextColor="Gray">
+                                                <Label.Triggers>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding ListPriceIncVat}">
+                                                        <Setter Property="IsVisible" Value="False" />
+                                                    </DataTrigger>
+                                                </Label.Triggers>
+                                            </Label>
+                                        </StackLayout>
+                                        <Label Text="{Binding NextDayDelivery, Converter={StaticResource NextDayDeliveryConverter}}" TextColor="Green" FontAttributes="Bold">
+                                            <Label.Triggers>
+                                                <DataTrigger TargetType="Label" Binding="{Binding ListPriceIncVat}">
+                                                    <Setter Property="IsVisible" Value="False" />
+                                                </DataTrigger>
+                                            </Label.Triggers>
+                                        </Label>
+                                        <Label Text="{Binding AvailabilityState, StringFormat='Available for pickup today in {0} stores'}" TextColor="Black" FontSize="Small">
+                                        </Label>
+
+                                    </StackLayout>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Frame>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

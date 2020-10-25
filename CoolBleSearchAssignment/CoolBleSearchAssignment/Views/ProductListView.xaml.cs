@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CoolBleSearchAssignment.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,10 @@ namespace CoolBleSearchAssignment.Views
         public ProductListView()
         {
             InitializeComponent();
+        }
+        private void Searchtext_Completed(object sender, System.EventArgs e)
+        {
+            ((ProductListViewModel)this.BindingContext).PerformSearchCommand.Execute((sender as Entry).Text.Trim());
         }
     }
 }
