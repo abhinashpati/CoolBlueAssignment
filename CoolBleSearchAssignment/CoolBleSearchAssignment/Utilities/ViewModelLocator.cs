@@ -2,6 +2,7 @@
 using CoolBleSearchAssignment.Contracts.Services.Data;
 using CoolBleSearchAssignment.Contracts.Services.General;
 using CoolBleSearchAssignment.Repository;
+using CoolBleSearchAssignment.Services.Data;
 using CoolBleSearchAssignment.Services.General;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace CoolBleSearchAssignment.Utilities
             _container.Register<IConnectionService, ConnectionService>();
             _container.Register<IDialogService, DialogService>();
             _container.Register<IGenericRepository, GenericRepository>();
-            _container.Register<IProductApiService, IProductApiService>();
+            _container.Register<IProductApiService, ProductApiService>();
         }
 
         public static readonly BindableProperty AutoWireViewModelProperty =
